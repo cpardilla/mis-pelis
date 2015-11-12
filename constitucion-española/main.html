@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <title>MIS PELIS: Constitución Española</title>
+
+  <link rel="stylesheet" type="text/css" href="../recursos/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../recursos/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" type="text/css" href="../recursos/css/style.css">
+
+  <link href='https://fonts.googleapis.com/css?family=Hind:500&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+  <script src="../recursos/js/jquery.min.js"></script>
+  <script src="../recursos/js/bootstrap.min.js"></script>
+  <script src="../recursos/js/scripts.js"></script>
+
+  <link rel="apple-touch-icon" sizes="57x57" href="../recursos/imagenes-iconos/favicon/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="../recursos/imagenes-iconos/favicon/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="../recursos/imagenes-iconos/favicon/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="../recursos/imagenes-iconos/favicon/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="../recursos/imagenes-iconos/favicon/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="../recursos/imagenes-iconos/favicon/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="../recursos/imagenes-iconos/favicon/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../recursos/imagenes-iconos/favicon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="../recursos/imagenes-iconos/favicon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../recursos/imagenes-iconos/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../recursos/imagenes-iconos/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../recursos/imagenes-iconos/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../recursos/imagenes-iconos/favicon/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="../recursos/imagenes-iconos/favicon/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+</head>
+
+<body onload="startDB()">
+
+  <!-- Modal HTML -->
+  <div id="update-confirmation" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Confirmación</h4>
+        </div>
+        <div class="modal-body">
+          <p>¿Quieres guardar los cambios y actualizar tu peli?</p>
+          <p><small>Si decides no hacerlo, no se harán cambios en la base de datos y tu peli seguirá como hasta ahora</small></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" id="cancel-update" data-dismiss="modal">CANCELAR</button>
+          <button type="button" class="btn btn-primary">ACTUALIZAR PELI</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal HTML -->
+  <div id="delete-confirmation" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Confirmación</h4>
+        </div>
+        <div class="modal-body">
+          <p>¿Quieres eliminar esta peli? Los cambios realizados en la base de datos no podrán rehacerse de nuevo</p>
+          <p><small>Si decides no hacerlo, no se harán cambios en la base de datos y tu peli seguirá como hasta ahora</small></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" id="cancel-delete" data-dismiss="modal">CANCELAR</button>
+          <button type="button" class="btn btn-primary">ELIMINAR PELI</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal HTML -->
+  <div id="modal-articulo" class="modal fade">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+
+  <header class="page-header center">
+    <div id="hammer-image-container" style="display: inline-block; margin-left: 20px; margin-top: 20px;">
+      <img class="img-responsive" src="../recursos/imagenes-iconos/hammer.png" width="150" style="opacity: 0.5; filter: alpha(opacity=50;);">
+    </div>
+
+    <div class="pull-left">
+      <h2>
+        MIS PELIS: Constitución Española
+      </h2>
+      <br>
+      <h4>
+        ...porque vas a ser funcionario por mis cojones
+      </h4>
+    </div>
+
+    <div id="credits" class="pull-right bg-info">
+      <h5 style="margin-bottom: 5px;">
+        <span class="small"><b>Background: Firenze - Colonna di S. Trinita;</b></span> <br>
+        <span class="small">@Image property of Giovanni Dall&#039;Orto, 27-Oct-2007</span> <br>
+        <span class="small"><a href="https://commons.wikimedia.org/wiki/File%3A9792_-_Firenze_-_Colonna_di_S._Trinita_-_Foto_Giovanni_Dall'Orto%2C_27-Oct-2007.jpg" target="_blank">source</a></span>
+      </h5>
+      <h5>
+        <span class="small">
+          Scale icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>
+        </span>
+      </h5>
+    </div>
+
+  </header>
+
+  <div id="main_div" class="center">
+
+    <div class="pull-left">
+      <img src="../recursos/imagenes-iconos/justice4.png" width="100" height="100">
+    </div>
+
+    <div class="pull-right">
+      <img src="../recursos/imagenes-iconos/justice4.png" width="100" height="100">
+    </div>
+
+    <div id="form-container" class="center">
+
+      <form>
+        <fieldset class="form-group">
+          <label for="realidad">REALIDAD (ABURRIDA)</label>
+          <textarea class="form-control" rows="6" id="realidad" placeholder="Introduce un rollazo que normalmente habría que memorizar a las malas..."></textarea>
+          <label for="pelicula">TU PELI (TE PARTES EL CULO Y APRENDES IGUALMENTE)</label>
+          <textarea class="form-control" rows="6" id="pelicula" placeholder="Introduce una peli tuya con la que podrás memorizar el rollazo de antes..."></textarea>
+          <label for="secciones">ELIGE UNA SECCION DONDE MOSTRARLA</label>
+          <div id='dropdown-container'>
+            <select id="secciones" class="form-control">
+              <option value="" disabled selected hidden>Elige una sección...</option>
+            </select>
+          </div>
+          <label for="articulos">ELIGE UN ARTICULO RELATIVO A LA SECCION Y A TU PELI</label>
+          <div id='dropdown-container'>
+            <select id="articulos" class="form-control">
+              <option value="" disabled selected hidden>Elige un artículo...</option>
+            </select>
+          </div>
+        </fieldset>
+        <button id="save_btn" style="margin-right: 5px;" type="button" class="btn btn-primary" onclick="addPeli(); location.reload();">GUARDA TU PELI</button>
+      </form>
+
+    </div>
+
+    <div class="wrapper">
+
+      <ul class="nav nav-tabs list">
+
+        <li class="active"><a data-toggle="tab" href="#titulo-preliminar">Título Preliminar</a></li>
+        <li><a data-toggle="tab" href="#titulo-i" >Título I</a></li>
+        <li><a data-toggle="tab" href="#titulo-i-capitulo-primero">Título I - Capítulo Primero</a></li>
+        <li><a data-toggle="tab" href="#titulo-i-capitulo-segundo">Título I - Capítulo Segundo</a></li>
+        <li><a data-toggle="tab" href="#titulo-i-capitulo-segundo-seccion-1ª">Título I - Capítulo Segundo - Sección 1ª</a></li>
+        <li><a data-toggle="tab" href="#titulo-i-capitulo-segundo-seccion-2ª">Título I - Capítulo Segundo - Sección 2ª</a></li>
+        <li><a data-toggle="tab" href="#titulo-i-capitulo-tercero">Título I - Capítulo Tercero</a></li>
+        <li><a data-toggle="tab" href="#titulo-i-capitulo-cuarto">Título I - Capítulo Cuarto</a></li>
+        <li><a data-toggle="tab" href="#titulo-i-capitulo-quinto">Título I - Capítulo Quinto</a></li>
+        <li><a data-toggle="tab" href="#titulo-ii">Título II</a></li>
+        <li><a data-toggle="tab" href="#titulo-iii-capitulo-primero">Título III - Capítulo Primero</a></li>
+        <li><a data-toggle="tab" href="#titulo-iii-capitulo-segundo">Título III - Capítulo Segundo</a></li>
+        <li><a data-toggle="tab" href="#titulo-iii-capitulo-tercero">Título III - Capítulo Tercero</a></li>
+        <li><a data-toggle="tab" href="#titulo-iv">Título IV</a></li>
+        <li><a data-toggle="tab" href="#titulo-v">Título V</a></li>
+        <li><a data-toggle="tab" href="#titulo-vi">Título VI</a></li>
+        <li><a data-toggle="tab" href="#titulo-vii">Título VII</a></li>
+        <li><a data-toggle="tab" href="#titulo-viii-capitulo-primero">Título VIII - Capítulo Primero</a></li>
+        <li><a data-toggle="tab" href="#titulo-viii-capitulo-segundo">Título VIII - Capítulo Segundo</a></li>
+        <li><a data-toggle="tab" href="#titulo-viii-capitulo-tercero">Título VIII - Capítulo Tercero</a></li>
+        <li><a data-toggle="tab" href="#titulo-ix">Título Noveno</a></li>
+        <li><a data-toggle="tab" href="#titulo-x">Título Décimo</a></li>
+
+      </ul>
+
+      <div class="tab-content">
+
+        <div id="titulo-preliminar" class="tab-pane fade in active">
+        </div>
+
+        <div id="titulo-i" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-i-capitulo-primero" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-i-capitulo-segundo" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-i-capitulo-segundo-seccion-1ª" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-i-capitulo-segundo-seccion-2ª" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-i-capitulo-tercero" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-i-capitulo-cuarto" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-i-capitulo-quinto" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-ii" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-iii-capitulo-primero" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-iii-capitulo-segundo" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-iii-capitulo-tercero" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-iv" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-v" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-vi" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-vii" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-viii-capitulo-primero" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-viii-capitulo-segundo" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-viii-capitulo-tercero" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-ix" class="tab-pane fade">
+        </div>
+
+        <div id="titulo-x" class="tab-pane fade">
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script type="text/javascript">
+
+    $('#cancel-update').siblings('.btn-primary').on('click', function() {
+      $(this).text('¡PELI ACTUALIZADA!').css({
+        'font-weight': 'bold',
+        'background': '#5cb85c',
+        'border': 'none'
+      });
+    });
+
+    $(document).on('click', '.open-update-confirmation', function () {
+      var update_key = $('#update_btn').attr('update-key');
+      $('#update-confirmation').find('.btn-primary').attr('onclick', 'updatePeli(parseInt(' + update_key + ')); location.reload();');
+    });
+
+    $('#cancel-update').on('mouseup', function() {
+      $(this).siblings('.btn-primary').removeAttr('onclick');
+    });
+
+    //******************************************************************************************
+
+    $('#cancel-delete').siblings('.btn-primary').on('click', function() {
+      $(this).text('¡PELI ELIMINADA!').css({
+        'font-weight': 'bold',
+        'background': '#5cb85c',
+        'border': 'none'
+      });
+    });
+
+    $(document).on('click', '.open-delete-confirmation', function () {
+      var delete_key = $(this).data('id');
+      $('#delete-confirmation').find('.btn-primary').attr('onclick', 'deletePeli(parseInt(' + delete_key + ')); location.reload();');
+    });
+
+    $('#cancel-delete').on('mouseup', function() {
+      $(this).siblings('.btn-primary').removeAttr('test_key');
+    });
+
+    //******************************************************************************************
+
+    $('#modal-articulo .modal-dialog .modal-content').wrap("<blockquote style='border: 0;'></blockquote>");
+
+    //******************************************************************************************
+
+    function fillSecciones() {
+
+      $('.nav-tabs li a').each(function() {
+        tab_link = $(this);
+        tab_identifier = tab_link.attr('href').substring(1);
+        tab_text = tab_link.text();
+        option = "<option value='" + tab_identifier + "'>" + tab_text + "</option>";
+        $('#secciones').append(option);
+      });
+
+    }
+
+    fillSecciones();
+
+    //******************************************************************************************
+
+    var articulos = [];
+    var i = 1;
+
+    do {
+      articulos.push("Artículo " + i)
+      i++;
+    }
+    while (i < 170);
+
+    function cleanMyDropdown() {
+
+      $("#articulos option").each(function() {
+        $(this).siblings("[value="+ $(this).val() +"]").remove();
+      });
+
+    }
+
+    var select_html;
+
+    function fillArticulos(option_value, sub_arr, select_html) {
+
+      $('#secciones').on('change', function() {
+
+        var seccion = $(this);
+
+        if (seccion.val() === option_value) {
+          for (var key in sub_arr) {
+            select_html += "<option value='" + sub_arr[key].replace(" ", "-").toLowerCase() + "'>" + sub_arr[key] + "</option>";
+            $('#articulos').html(select_html);
+            $('#articulos').append("<option value='' style='background: #e8e8e9;'>Sin artículo</option>");
+          }
+          cleanMyDropdown();
+        }
+
+      });
+
+    }
+
+    fillArticulos("titulo-preliminar", articulos.slice(0, 9), select_html);
+    fillArticulos("titulo-i", articulos.slice(9, 10), select_html);
+    fillArticulos("titulo-i-capitulo-primero", articulos.slice(10, 13), select_html);
+    fillArticulos("titulo-i-capitulo-segundo", articulos.slice(13, 14), select_html);
+    fillArticulos("titulo-i-capitulo-segundo-seccion-1ª", articulos.slice(14, 29), select_html);
+    fillArticulos("titulo-i-capitulo-segundo-seccion-2ª", articulos.slice(29, 38), select_html);
+    fillArticulos("titulo-i-capitulo-tercero", articulos.slice(38, 52), select_html);
+    fillArticulos("titulo-i-capitulo-cuarto", articulos.slice(52, 54), select_html);
+    fillArticulos("titulo-i-capitulo-quinto", articulos.slice(54, 55), select_html);
+    fillArticulos("titulo-ii", articulos.slice(55, 65), select_html);
+    fillArticulos("titulo-iii-capitulo-primero", articulos.slice(65, 80), select_html);
+    fillArticulos("titulo-iii-capitulo-segundo", articulos.slice(80, 92), select_html);
+    fillArticulos("titulo-iii-capitulo-tercero", articulos.slice(92, 96), select_html);
+    fillArticulos("titulo-iv", articulos.slice(96, 107), select_html);
+    fillArticulos("titulo-v", articulos.slice(107, 116), select_html);
+    fillArticulos("titulo-vi", articulos.slice(116, 127), select_html);
+    fillArticulos("titulo-vii", articulos.slice(127, 136), select_html);
+    fillArticulos("titulo-viii-capitulo-primero", articulos.slice(136, 139), select_html);
+    fillArticulos("titulo-viii-capitulo-segundo", articulos.slice(139, 142), select_html);
+    fillArticulos("titulo-viii-capitulo-tercero", articulos.slice(142, 158), select_html);
+    fillArticulos("titulo-ix", articulos.slice(158, 165), select_html);
+    fillArticulos("titulo-x", articulos.slice(165, 169), select_html);
+
+    //******************************************************************************************
+
+    window.onresize = function() {
+      adaptMyApp();
+    }
+
+    function adaptMyApp() {
+      if (window.innerWidth < 1600) {
+        $('#hammer-image-container').hide();
+        $('#credits').css('margin-bottom', '25px');
+      } else if (window.innerWidth < 1366) {
+        $('#credits').hide();
+      } else if (window.innerWidth > 1600) {
+        $('#credits').show();
+        $('#hammer-image-container').show();
+      }
+    }
+
+  </script>
+
+</body>
+</html>
